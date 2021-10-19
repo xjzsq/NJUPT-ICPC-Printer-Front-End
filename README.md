@@ -1,8 +1,8 @@
 # 南邮ICPC校队代码打印平台 网页端
 
-服务端见此仓库：
+服务端见此仓库：[NJUPT-ICPC-Printer-Back-End: 南邮ICPC校队代码打印平台 服务端](https://github.com/xjzsq/NJUPT-ICPC-Printer-Back-End)
 
-## 开始使用
+## :package:开始使用
 
 克隆并安装依赖：
 
@@ -17,7 +17,7 @@ yarn add @ant-design/icons
 
 使用 `yarn build` 即可打包（并没有用过）。
 
-## 应用场景
+## :hammer:当前食用情况
 
 由于只有内网打印需求，所以直接用[小皮面板](https://www.xp.cn/)启了一个 `nginx`，做如下配置：（小皮面板里面还不能直接点出来 `nginx` 配置，需要去他的安装目录的 `\Extensions\Nginx1.15.11\conf\vhosts\` 修改对应的配置，此处修改的是默认 `0localhost_80.conf` 的配置，按道理来讲只对 `localhost` 起作用，不知道为啥直接内网访问 `ip` 地址也可以，管他呢，那我就不用再根据 `ip` 地址配了.jpg ）
 
@@ -41,11 +41,12 @@ server {
 
 然后使用 `yarn start` 启动前端，`py 1.py` 启动后端，把内网地址挂到比赛页面就可以了~
 
-### Todo
+### :keyboard:Todo
 
 基本上不可能做的：
 
 - [x] 基本功能
 - [ ] 记住队伍名字，下次自动填写
 - [ ] 修复输入框不能输入 `tab` 等按键
+- [ ] 直接上传代码文件打印
 
