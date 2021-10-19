@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "代码打印",
+  "name": "南邮ACM校队真题模拟训练赛代码打印",
   "icons": [
     {
       "src": "favicon.ico",
