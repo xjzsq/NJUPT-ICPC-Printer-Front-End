@@ -10,10 +10,9 @@
 git clone https://github.com/xjzsq/NJUPT-ICPC-Printer-Front-End.git
 cd NJUPT-ICPC-Printer-Front-End
 yarn
-yarn add @ant-design/icons
 ```
 
-然后使用 `yarn start `即可运行在 `http://localhost:3000` 端口。
+然后使用 `yarn start` 即可运行在 `http://localhost:3000` 端口。
 
 使用 `yarn build` 即可打包（并没有用过）。
 
