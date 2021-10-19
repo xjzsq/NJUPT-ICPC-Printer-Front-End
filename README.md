@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# 南邮ICPC校队代码打印平台 网页端
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+服务端见此仓库：
 
-## Available Scripts
+## 开始使用
 
-In the project directory, you can run:
+克隆并安装依赖：
 
-### `yarn start`
+```bash
+git clone https://github.com/xjzsq/NJUPT-ICPC-Printer-Front-End.git
+cd NJUPT-ICPC-Printer-Front-End
+yarn
+yarn add @ant-design/icons
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+然后使用 `yarn start `即可运行在 `http://localhost:3000` 端口。
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+使用 `yarn build` 即可打包（并没有用过）。
 
-### `yarn test`
+## 应用场景
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+由于只有内网打印需求，所以直接用[小皮面板](https://www.xp.cn/)启了一个 `nginx`，做如下配置：（小皮面板里面还不能直接点出来 `nginx` 配置，需要去他的安装目录的 `\Extensions\Nginx1.15.11\conf\vhosts\` 修改对应的配置，此处修改的是默认 `0localhost_80.conf` 的配置，按道理来讲只对 `localhost` 起作用，不知道为啥直接内网访问 `ip` 地址也可以，管他呢，那我就不用再根据 `ip` 地址配了.jpg ）
 
-### `yarn build`
+```nginx
+server {
+    listen        80; 
+    server_name  localhost; 
+    
+    location /api/ { 
+        rewrite  ^/api/(.*)$ /$1 break; 
+		proxy_pass http://127.0.0.1:6088/; 
+    } 
+    location / { 
+        proxy_pass http://127.0.0.1:3000/; 
+		proxy_set_header Host $proxy_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+然后使用 `yarn start` 启动前端，`py 1.py` 启动后端，把内网地址挂到比赛页面就可以了~
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Todo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+基本上不可能做的：
 
-### `yarn eject`
+- [x] 基本功能
+- [ ] 记住队伍名字，下次自动填写
+- [ ] 修复输入框不能输入 `tab` 等按键
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
